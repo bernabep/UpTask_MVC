@@ -19,11 +19,10 @@ class LoginController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = new Usuario($_POST);
             $alertas = $usuario->validarLogin();
-        }
-        if(empty($alertas)){
-            $usuario = Usuario::where('email',$usuario->email);
-
-            if(!$usuario || !$usuario->confirmado){
+            if(empty($alertas)){
+                $usuario = Usuario::where('email',$usuario->email);
+                
+                if(!$usuario || !$usuario->confirmado){
                     Usuario::setAlerta('error','El usuario no está registrado o no está confirmado');
                 }else{
                     if(password_verify($_POST['password'],$usuario->password)){
@@ -34,17 +33,18 @@ class LoginController
                         $_SESSION['nombre'] = $usuario->nombre;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['login'] = true;
-
+                        
                         //Redireccionar
                         header('Location: /dashboard');
                         
                         
                     }else {
                         Usuario::setAlerta('error','Password Incorrecto');
-                        }
-
+                    }
+                    
                 }
-           
+                
+            }
             
         }
         
@@ -56,8 +56,9 @@ class LoginController
     }
     public static function logout(Router $router)
     {
-        echo "desde logout";
-
+        session_start();
+        $_SESSION = [];
+        header('Location: /');
         // $router->render('auth/index',[]);
     }
 
