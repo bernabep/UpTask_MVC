@@ -1,0 +1,24 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+@use "sass:color";
+
+.alerta {
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    padding: 1rem 1rem 1rem 2rem;
+    font-weight: 900;
+    font-size: 1.2rem;
+    max-width: 80rem;
+
+    &.error {
+      background-color: color.adjust(v.$rojo, $lightness: 50%);
+      color: v.$rojo;
+      border-left: 0.5rem solid v.$rojo;
+    }
+    &.exito{
+      background-color: color.adjust(v.$verde, $lightness: 50%);
+      color: v.$verde;
+      border-left: 0.5rem solid v.$verde;
+    }
+  
+}

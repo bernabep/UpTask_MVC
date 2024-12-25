@@ -1,0 +1,31 @@
+# Descargables
+*.zip
+*.rar
+*.exe
+
+# Sistema operativo
+/Thumbs.db
+/.DS_Store
+
+# Editores de texto
+.DS_Store
+.idea
+.vscode
+
+# npm
+/node_modules
+
+#vendor
+/vendor
+# Archivos temporales
+npm-debug.log*
+*.log
+*.tsbuildinfo
+*.local.ts
+!.eslintrc.js
+
+# Archivos compilados
+/dist
+/build
+
+/includes/.env
