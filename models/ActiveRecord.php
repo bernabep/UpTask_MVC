@@ -69,6 +69,13 @@ class ActiveRecord {
         return array_shift( $resultado ) ;
     }
 
+    // Busqueda Where con Columna 
+    public static function belongsto($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
     // SQL para Consultas Avanzadas.
     public static function SQL($consulta) {
         $query = $consulta;

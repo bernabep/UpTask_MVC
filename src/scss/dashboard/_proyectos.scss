@@ -1,0 +1,41 @@
+@use "base/mixins" as m;
+@use "base/variables" as v;
+
+.no-proyectos{
+    @include m.grid(1,2rem);
+    justify-content: center;
+    align-content: center;
+    a{  
+        @include m.boton(v.$indigo,v.$blanco);
+        max-width: 50rem;
+
+    }
+}
+.listado-proyectos{
+    list-style: none;
+    padding: 0;
+    margin-top: 3rem;
+
+    @include m.grid(1,2rem);
+    @include m.tablet{
+        @include m.grid(2,2rem);
+    }
+    @include m.desktop{
+        @include m.grid(3,2rem);
+    }
+
+    .proyecto{
+      @include m.boton(v.$indigo,v.$blanco);
+    min-height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 2;
+    
+    a{
+        color: v.$blanco;
+        text-transform: uppercase;
+      }
+    }
+
+  }
