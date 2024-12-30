@@ -9,12 +9,15 @@
   }
   .principal {
     flex: 1;
+    overflow: scroll;
   }
   .contenido {
     padding: 2rem;
+    
     .nombre-pagina {
       font-size: 2.8rem;
       text-align: center;
+      text-transform: capitalize;
     }
   }
   .formulario {

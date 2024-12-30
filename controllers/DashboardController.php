@@ -49,7 +49,7 @@ class DashboardController
     public static function proyecto(Router $router){
         session_start();
         isAuth();
-
+        $proyecto = new Proyecto();
         $token = $_GET['id'];
         if(!$token){
             header('Location: /dashboard');

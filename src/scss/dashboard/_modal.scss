@@ -22,6 +22,8 @@
         transition-property: all;
         transition-duration: 1000ms;
 
+
+
         &.animar{
         opacity: 1;
         position: relative;
@@ -34,6 +36,10 @@
         }
     }
 
+    input[type="text"]{
+        border: 1px solid v.$gris;
+        border-radius: 0.5rem;
+    }
     legend{
         display: block;
         padding: 2rem;
