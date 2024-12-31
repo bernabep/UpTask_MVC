@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect('localhost', 'root', 'root', 'uptask_mvc');
+$db = mysqli_connect('192.168.0.90', 'remote', 'root', 'uptask_mvc');
 
 if (!$db) {
     echo "Error: No se pudo conectar a MySQL.";
