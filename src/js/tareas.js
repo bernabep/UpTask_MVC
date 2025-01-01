@@ -1,13 +1,32 @@
 (function () {
   let tareas = [];
+  let filtradas = [];
   obtenerTareas();
 
   //Boton añadir tarea
   const nuevaTareaBtn = document.querySelector("#agregar-tarea");
+  const filtros = document.querySelectorAll('#filtros input[type="radio"]');
+  filtros.forEach((radio) => {
+    radio.addEventListener("input", filtrarTareas);
+  });
+
   nuevaTareaBtn.addEventListener("click", function () {
     mostrarFormulario();
   });
 
+  function filtrarTareas(e) {
+    const filtro = e.target.value;
+    console.log(tareas);
+    console.log(filtro);
+    if (filtro !== "") {
+      filtradas = tareas.filter(
+        (tareaMemoria) => tareaMemoria.estado == filtro
+      );
+    } else {
+      filtradas = [];
+    }
+    mostrarTareas();
+  }
   function mostrarFormulario(editar = false, tarea = {}) {
     const modal = document.createElement("DIV");
     modal.classList.add("modal");
@@ -78,8 +97,11 @@
 
   function mostrarTareas() {
     limpiarTareas();
+    totalTareasCompletadas();
+    totalTareasPendientes();
+    const arrayTareas = filtradas.length ? filtradas : tareas;
     const contenedorTareas = document.querySelector("#listado-tareas");
-    if (tareas.length === 0) {
+    if (arrayTareas.length === 0) {
       const textoNoTareas = document.createElement("LI");
       textoNoTareas.textContent = "No Hay Tareas";
       textoNoTareas.classList.add("no-tareas");
@@ -89,7 +111,7 @@
         0: "Pendiente",
         1: "Completa",
       };
-      tareas.forEach((tarea) => {
+      arrayTareas.forEach((tarea) => {
         const contenedorTarea = document.createElement("LI");
         contenedorTarea.dataset.tareaId = tarea.id;
         contenedorTarea.classList.add("tarea");
@@ -97,7 +119,7 @@
         const nombreTarea = document.createElement("P");
         nombreTarea.textContent = tarea.nombre;
         nombreTarea.ondblclick = function () {
-          mostrarFormulario((editar = true), (tarea = {...tarea}));
+          mostrarFormulario((editar = true), (tarea = { ...tarea }));
         };
 
         const opcionesDiv = document.createElement("DIV");
@@ -133,6 +155,24 @@
     }
   }
 
+  function totalTareasCompletadas() {
+    const tareasCompletadas = tareas.filter(tarea=>tarea.estado==="1");
+    const radioCompletadas = document.querySelector('#completadas')
+    if(tareasCompletadas.length === 0){
+      radioCompletadas.disabled = true;
+    }else{
+      radioCompletadas.disabled = false;
+    }
+  }
+  function totalTareasPendientes() {
+    const tareasPendientes = tareas.filter(tarea=>tarea.estado==="0");
+    const radioPendientes = document.querySelector('#pendientes')
+    if(tareasPendientes.length === 0){
+      radioPendientes.disabled = true;
+    }else{
+      radioPendientes.disabled = false;
+    }
+  }
   function mostrarAlerta(mensaje, tipo, referencia) {
     const alerta = document.createElement("DIV");
     alerta.classList.add("alerta", tipo);
@@ -173,7 +213,7 @@
       tarea.estado === "0" ? (tarea.estado = "1") : (tarea.estado = "0");
     actualizarTarea(tarea);
   }
-  
+
   function confirmarEliminarTarea(tarea) {
     Swal.fire({
       title: "Seguro que quieres eliminar la Tarea?",
@@ -210,9 +250,8 @@
         Swal.fire({
           title: resultado.respuesta.mensaje,
           icon: "success",
-          draggable: true
+          draggable: true,
         });
-        
 
         tareas = tareas.map((tareaMemoria) => {
           if (tareaMemoria.id === id) {
@@ -227,7 +266,7 @@
       console.log(error);
     }
   }
-  
+
   async function eliminarTarea(tarea) {
     const { id, nombre, estado, proyectoId } = tarea;
     const datos = new FormData();
@@ -251,7 +290,7 @@
         //   document.querySelector(".contenedor-nueva-tarea")
         // );
         Swal.fire("Tarea Eliminada!", "", "success");
-        tareas = tareas.filter(tareaMemoria => tareaMemoria.id !== id);
+        tareas = tareas.filter((tareaMemoria) => tareaMemoria.id !== id);
 
         mostrarTareas();
       }
@@ -281,7 +320,7 @@
       Swal.fire({
         title: resultado.mensaje,
         icon: "success",
-        draggable: true
+        draggable: true,
       });
       if (resultado.tipo === "exito") {
         setTimeout(() => {
