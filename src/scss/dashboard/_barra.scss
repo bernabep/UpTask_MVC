@@ -17,6 +17,9 @@
     }
     #mobile-menu{
         width: 1rem;
+        &:hover{
+            cursor: pointer;
+        }
 
     }
 }
