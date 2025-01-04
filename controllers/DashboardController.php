@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Proyecto;
+use Model\Usuario;
 use MVC\Router;
 
 
@@ -72,9 +73,31 @@ class DashboardController
     {
         session_start();
         isAuth();
-        $router->render('/dashboard/perfil', [
-            'titulo' => 'Perfil'
+        $alertas = [];
+        $usuario = Usuario::find($_SESSION['id']);
 
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $usuarioFormulario = new Usuario($_POST);
+            $usuarioFormulario->validarModificacionUsuario();
+            $alertas = Usuario::getAlertas();
+            if(empty($alertas)){
+                $usuario->nombre = $usuarioFormulario->nombre;
+                $usuario->email = $usuarioFormulario->email;
+                $resultado = $usuario->guardar();
+                if($resultado){
+                    header('Location: /perfil');
+                }
+                debuguear($resultado);
+            }
+            debuguear($alertas);
+
+
+        }
+
+        $router->render('/dashboard/perfil', [
+            'titulo' => 'Perfil',
+            'alertas'=> $alertas,
+            'usuario' => $usuario
         ]);
     }
 }

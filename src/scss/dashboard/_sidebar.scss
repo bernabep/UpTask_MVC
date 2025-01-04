@@ -7,36 +7,61 @@
   background-color: v.$indigo;
   height: 0;
   overflow: hidden;
-  transition-property: all;
+  transition-property: opacity;
   transition-duration: 500ms;
   
   &.mostrar{
+    opacity: 1;
+    padding: 2rem;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0 0 0 / 90%);
+    z-index: 1000;
+    @include m.tablet{
+      position: relative;
+      background-color: v.$indigo;
+    }
+  }
+  
+  &.ocultar{
+    opacity: 0;
+    @include m.tablet{
+      opacity: 1;
+    }
+  }
+  @include m.tablet {
+      height: 100%;
       opacity: 1;
       padding: 2rem;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgb(0 0 0 / 90%);
-      @include m.tablet{
-        display: none;
-      }
-    }
-    @include m.tablet {
-        height: 100%;
-        opacity: 1;
-        padding: 2rem;
-        overflow:visible;
+      overflow:visible;
 }
 
-
+.sidebar-header{
+  display: flex;
+  justify-content: space-between;
+  img{
+    margin-right: 1rem;
+    width: 2rem;
+    @include m.tablet{
+      display: none;
+    }
+    &:hover{
+      cursor: pointer;
+    }
+  }
   h2 {
     color: v.$blanco;
     margin: 0;
     text-align: center;
   }
+  @include m.tablet{
+    opacity: 1;
+  }
+}
 
   .sidebar-nav {
     margin-top: 5rem;
@@ -44,19 +69,38 @@
     a {
       color: v.$blanco;
       display: block;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       padding: 0.7rem;
       transition-property: background-color;
       transition-duration: 300ms;
       text-transform: uppercase;
-      font-size: 1.2rem;
+      font-size: 2.4rem;
       font-weight: bold;
-
+      text-align: center;
       &:hover,
       &.activo {
         background-color: color.adjust($color: v.$indigo, $lightness: -20%);
         border-radius: 0.5rem;
       }
+      @include m.tablet{
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        text-align: left;
+        
+      }
+
+    }
+  }
+  .cerrar-sesion-mobile{
+    margin-top: 10rem;
+    // background-color: v.$indigo;
+    .cerrar-sesion{
+      @include m.boton(v.$indigo,v.$blanco);
+      color: v.$blanco;
+      text-transform: uppercase;
+    }
+    @include m.tablet{
+      display: none;
     }
   }
 }
