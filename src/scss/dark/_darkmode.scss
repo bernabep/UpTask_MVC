@@ -20,6 +20,7 @@
   .formulario .campo input,
   .nombre-pagina {
     color: color.adjust($color: v.$grisClaro, $lightness: -15%);
+    color: v.$blanco;
   }
 
   .formulario .campo input {
@@ -80,6 +81,14 @@
         color: color.adjust(v.$grisClaro, $lightness: -20%);
       }
     }
+    .formulario .campo input:not([type=submit]) {
+      background-color: color.adjust($color: v.$grisOscuro, $lightness: 0%);
+      color: v.$blanco;
+      &::placeholder{
+        color: color.adjust(v.$grisOscuro, $lightness: -30%);
+      }
+    }
+
   }
 
   .listado-proyectos .proyecto {
@@ -88,11 +97,16 @@
       background-color: color.adjust($color: $grisOscuro, $lightness: 15%);
     }
   }
-  .listado-tareas .tarea {
-    background-color: color.adjust($color: v.$grisOscuro, $lightness: 10%);
-    border: none;
-    p {
-      color: v.$grisClaro;
+  .listado-tareas {
+    .tarea {
+      background-color: color.adjust($color: v.$grisOscuro, $lightness: 10%);
+      border: none;
+      p {
+        color: v.$grisClaro;
+      }
+    }
+    .no-tareas{
+      color: v.$blanco;
     }
   }
 
@@ -100,13 +114,18 @@
   //   .formulario input:not([type="submit"])
   .modal{
       .formulario.nueva-tarea {
-        background-color: v.$grisOscuro;
+        background-color: color.adjust(v.$grisOscuro, $lightness: 20%);
         legend{
             color: v.$grisClaro;
         }
+
         input[type="text"],
         input:not([type="submit"]){
-            color: color.adjust(v.$grisOscuro, $lightness: 20%);
+          color: v.$blanco;
+          border: none;
+            &::placeholder{
+              color: color.adjust(v.$grisOscuro, $lightness: 30%);
+            }
         }
         // me quedé pendiente aqui, no puedo aplicar formato al fondo de input, el elemento que tengo aqui arriba
       }
