@@ -96,8 +96,11 @@
     // background-color: v.$indigo;
     .cerrar-sesion{
       @include m.boton(v.$indigo,v.$blanco);
-      color: v.$blanco;
-      text-transform: uppercase;
+      &{
+        color: v.$blanco;
+        text-transform: uppercase;
+
+      }
     }
     @include m.tablet{
       display: none;

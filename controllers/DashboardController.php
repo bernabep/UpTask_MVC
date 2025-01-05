@@ -77,21 +77,29 @@ class DashboardController
         $usuario = Usuario::find($_SESSION['id']);
 
         if($_SERVER['REQUEST_METHOD']=='POST'){
-            $usuarioFormulario = new Usuario($_POST);
-            $usuarioFormulario->validarModificacionUsuario();
+            $usuario->sincronizar($_POST);
+            $usuario->validarPerfil();
             $alertas = Usuario::getAlertas();
             if(empty($alertas)){
-                $usuario->nombre = $usuarioFormulario->nombre;
-                $usuario->email = $usuarioFormulario->email;
-                $resultado = $usuario->guardar();
-                if($resultado){
-                    header('Location: /perfil');
+                $usuario->nombre = $usuario->nombre;
+                $usuario->email = $usuario->email;
+
+                $existeUsuario = Usuario::where('email',$usuario->email);
+                if($existeUsuario && $existeUsuario->id !== $usuario->id){
+                    Usuario::setAlerta('error','El Email ya pertenece a otra cuenta');
+                    $alertas = $usuario->getAlertas();
+                }else{
+                    $resultado = $usuario->guardar();
+                    if($resultado){
+                        Usuario::setAlerta('exito','Usuario Actualizado Correctamente');
+                        $alertas = $usuario->getAlertas();
+                        $_SESSION['nombre']=$usuario->nombre;
+                        $_SESSION['email']=$usuario->email;
+                        // header('Location: /perfil');
+                    }
+
                 }
-                debuguear($resultado);
             }
-            debuguear($alertas);
-
-
         }
 
         $router->render('/dashboard/perfil', [
@@ -99,5 +107,38 @@ class DashboardController
             'alertas'=> $alertas,
             'usuario' => $usuario
         ]);
+    }
+
+    public static function cambiar_password(Router $router){
+        $alertas = [];
+        session_start();
+        isAuth();
+        $usuario = Usuario::find($_SESSION['id']);
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $usuario->sincronizar($_POST);
+            $alertas = $usuario->nuevo_password();
+            if(empty($alertas)){
+                $resultado = $usuario->comprobar_password();
+                if($resultado){
+                    $usuario->password = $usuario->password_nuevo;
+                    $usuario->hashearPassword();
+                    $resultado = $usuario->guardar();
+                    if($resultado){
+                        Usuario::setAlerta('exito','Password Guardado Correctamente');
+                        $alertas = $usuario->getAlertas();
+                    }
+                }else{
+                    Usuario::setAlerta('error','La contraseña actual no coincide');
+                    $alertas = $usuario::getAlertas();
+                }
+            }
+        }
+
+        $router->render('/dashboard/cambiar-password',[
+            'titulo' => 'Cambiar Password',
+            'alertas'=> $alertas,
+            'usuario' => $usuario
+        ]);
+
     }
 }

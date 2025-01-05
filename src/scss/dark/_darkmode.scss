@@ -1,0 +1,114 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+@use "sass:color";
+
+@media (prefers-color-scheme: dark) {
+  $grisOscuro: #2c2c3b;
+
+  body {
+    background-color: $grisOscuro;
+  }
+
+  .tagline,
+  .formulario label,
+  .login .acciones a,
+  .crear .acciones a,
+  .olvide .acciones a {
+    color: v.$blanco;
+  }
+  .descripcion-pagina,
+  .formulario .campo input,
+  .nombre-pagina {
+    color: color.adjust($color: v.$grisClaro, $lightness: -15%);
+  }
+
+  .formulario .campo input {
+    background-color: color.adjust($color: v.$grisOscuro, $lightness: -15%);
+  }
+
+  .alerta.error {
+    background-color: v.$blanco;
+  }
+
+  .sidebar {
+    @include m.tablet {
+      background-color: color.adjust(v.$grisOscuro, $lightness: -20%);
+    }
+    .sidebar-nav {
+      a:hover,
+      a.activo {
+        background-color: v.$naranja;
+      }
+    }
+  }
+  .barra-mobile,
+  .barra {
+    background-color: color.adjust($color: $grisOscuro, $lightness: -7%);
+  }
+  .barra {
+    p {
+      color: v.$naranja;
+      span {
+        color: v.$grisClaro;
+      }
+    }
+    .cerrar-sesion {
+      @include m.boton(v.$naranja, v.$blanco);
+      & {
+        font-size: 1.2rem;
+        padding: 1rem;
+      }
+    }
+  }
+
+  .filtros {
+    background-color: color.adjust($color: $grisOscuro, $lightness: 10%);
+    h2,
+    label {
+      color: v.$blanco;
+    }
+    input[type="radio"] {
+      accent-color: v.$naranja;
+    }
+  }
+  .dashboard {
+    background-color: $grisOscuro;
+
+    .enlace {
+      color: v.$grisClaro;
+      &:hover {
+        color: color.adjust(v.$grisClaro, $lightness: -20%);
+      }
+    }
+  }
+
+  .listado-proyectos .proyecto {
+    background-color: color.adjust($color: $grisOscuro, $lightness: 20%);
+    &:hover {
+      background-color: color.adjust($color: $grisOscuro, $lightness: 15%);
+    }
+  }
+  .listado-tareas .tarea {
+    background-color: color.adjust($color: v.$grisOscuro, $lightness: 10%);
+    border: none;
+    p {
+      color: v.$grisClaro;
+    }
+  }
+
+  //   .formulario .campo input:not([type="submit"]),
+  //   .formulario input:not([type="submit"])
+  .modal{
+      .formulario.nueva-tarea {
+        background-color: v.$grisOscuro;
+        legend{
+            color: v.$grisClaro;
+        }
+        input[type="text"],
+        input:not([type="submit"]){
+            color: color.adjust(v.$grisOscuro, $lightness: 20%);
+        }
+        // me quedé pendiente aqui, no puedo aplicar formato al fondo de input, el elemento que tengo aqui arriba
+      }
+  }
+}

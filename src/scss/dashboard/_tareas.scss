@@ -3,85 +3,75 @@
 @use "sass:color";
 
 .contenedor-nueva-tarea {
-    display: flex;
-    justify-content: center;
-    .agregar-tarea{
-        @include m.boton(v.$indigo,v.$blanco);
-    }
+  display: flex;
+  justify-content: center;
+  .agregar-tarea {
+    @include m.boton(v.$cyan, v.$blanco);
+  }
 }
 
-.listado-tareas{
-    
-    list-style: none;
-    padding: 0;
-    margin-top: 3rem;
+.listado-tareas {
+  list-style: none;
+  padding: 0;
+  margin-top: 3rem;
 
-    .no-tareas{
-        text-align: center;
-    }
-}
-
-.tarea{
+  .no-tareas {
+    text-align: center;
+  }
+  .tarea {
     padding: 0.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid color.adjust($color: v.$grisClaro, $lightness: -20%);
     margin-bottom: 1rem;
-    
-    &:last-of-type{
-        border-bottom: none;
+    background-color: color.adjust(v.$grisClaro, $lightness: -2%);
+    border-radius: 1rem;
+  
+    &:last-of-type {
+      border-bottom: none;
     }
-
-    p{
-        font-size: 1.4rem
+  
+    p {
+      font-size: 1.4rem;
     }
-    .opciones{
-        display: flex;
-        gap: 1rem;
-        button{
-            border: none;
-            border-radius: 2rem;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            display:inline;
-            &:hover{
-                cursor: pointer;
-            }
-            
+    .opciones {
+      display: flex;
+      gap: 1rem;
+      button {
+        border: none;
+        border-radius: 2rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        display: inline;
+        &:hover {
+          cursor: pointer;
         }
-        .completa{
-            background-color: v.$azul;
-            color: v.$blanco;
-            &:hover {
-                background-color: color.adjust($color: v.$azul, $lightness: -10%);
-            }
+      }
+      .completa {
+        background-color: v.$azul;
+        color: v.$blanco;
+        &:hover {
+          background-color: color.adjust($color: v.$azul, $lightness: -10%);
         }
-        .pendiente{
-            background-color: v.$naranja;
-            color: v.$blanco;
-            &:hover {
-                background-color: color.adjust($color: v.$naranja, $lightness: -10%);
-            }
+      }
+      .pendiente {
+        background-color: v.$naranja;
+        color: v.$blanco;
+        &:hover {
+          background-color: color.adjust($color: v.$naranja, $lightness: -10%);
         }
-        .eliminar-tarea{
-            background-color: v.$rojo;
-            color: v.$blanco;
-            &:hover {
-                background-color: color.adjust($color: v.$rojo, $lightness: -10%);
-            }
+      }
+      .eliminar-tarea {
+        background-color: v.$rojo;
+        color: v.$blanco;
+        &:hover {
+          background-color: color.adjust($color: v.$rojo, $lightness: -10%);
         }
-     
-        
-    .tarea-estado{
-
-    }   
-    
-    .eliminar-tarea{
-
+      }
     }
-    }
-    
+  }
 }
+

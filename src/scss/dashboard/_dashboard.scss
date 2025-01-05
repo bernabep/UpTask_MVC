@@ -1,5 +1,6 @@
 @use "base/mixins" as m;
 @use "base/variables" as v;
+@use "sass:color";
 
 .dashboard {
   background-color: v.$grisClaro;
@@ -21,7 +22,7 @@
     }
   }
   .formulario {
-    input:not([type="submit"]) {
+    .campo input:not([type="submit"]) {
       background-color: v.$blanco;
     }
     input[type="submit"] {
@@ -31,6 +32,13 @@
       font-weight: bold;
       font-size: 1.4rem;
       }
+    }
+  }
+  .enlace{
+    color: v.$indigo;
+    &:hover{
+      color: color.adjust($color: v.$indigo, $lightness: -20%);
+      font-weight: bold;
     }
   }
 
