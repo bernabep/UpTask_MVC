@@ -1,8 +1,8 @@
 (function () {
+
   let tareas = [];
   let filtradas = [];
   obtenerTareas();
-
   //Boton añadir tarea
   const nuevaTareaBtn = document.querySelector("#agregar-tarea");
   const filtros = document.querySelectorAll('#filtros input[type="radio"]');
@@ -156,20 +156,20 @@
   }
 
   function totalTareasCompletadas() {
-    const tareasCompletadas = tareas.filter(tarea=>tarea.estado==="1");
-    const radioCompletadas = document.querySelector('#completadas')
-    if(tareasCompletadas.length === 0){
+    const tareasCompletadas = tareas.filter((tarea) => tarea.estado === "1");
+    const radioCompletadas = document.querySelector("#completadas");
+    if (tareasCompletadas.length === 0) {
       radioCompletadas.disabled = true;
-    }else{
+    } else {
       radioCompletadas.disabled = false;
     }
   }
   function totalTareasPendientes() {
-    const tareasPendientes = tareas.filter(tarea=>tarea.estado==="0");
-    const radioPendientes = document.querySelector('#pendientes')
-    if(tareasPendientes.length === 0){
+    const tareasPendientes = tareas.filter((tarea) => tarea.estado === "0");
+    const radioPendientes = document.querySelector("#pendientes");
+    if (tareasPendientes.length === 0) {
       radioPendientes.disabled = true;
-    }else{
+    } else {
       radioPendientes.disabled = false;
     }
   }
